@@ -5,6 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import useMode from "../../hooks/useMode";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -57,7 +58,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     minutes: 0,
   });
 
-  const [attempt, setAttempt] = useState(3);
+  // Зависимость от чекбокса на начальной странице
+  const { mode } = useMode();
+  // Состояние для количества попыток в начале игры
+  const [attempt, setAttempt] = useState(mode === "easy" ? 3 : 1);
 
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
@@ -71,7 +75,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(STATUS_IN_PROGRESS);
   }
   function resetGame() {
-    setAttempt(3);
+    setAttempt(mode === "easy" ? 3 : 1);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -104,40 +108,18 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     setCards(nextCards);
 
-    // const isPlayerWon = nextCards.every(card => card.open);
+    const isPlayerWon = nextCards.every(card => card.open);
 
-    // // Победа - все карты на поле открыты
-    // if (isPlayerWon) {
-    //   finishGame(STATUS_WON);
-    //   return;
-    // }
+    // Победа - все карты на поле открыты
+    if (isPlayerWon) {
+      finishGame(STATUS_WON);
+      return;
+    }
 
-    // // Открытые карты на игровом поле
-    // const openCards = nextCards.filter(card => card.open);
-
-    // // Ищем открытые карты, у которых нет пары среди других открытых
-    // const openCardsWithoutPair = openCards.filter(card => {
-    //   const sameCards = openCards.filter(openCard => card.suit === openCard.suit && card.rank === openCard.rank);
-
-    //   if (sameCards.length < 2) {
-    //     return true;
-    //   }
-
-    //   return false;
-    // });
-
-    // const playerLost = openCardsWithoutPair.length >= 2;
-
-    // // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    // if (playerLost) {
-    //   finishGame(STATUS_LOST);
-    //   return;
-    // }
-
-    // ... игра продолжается
-
+    // Открытые карты на игровом поле
     const openCards = nextCards.filter(card => card.open);
 
+    // Ищем открытые карты, у которых нет пары среди других открытых
     const openCardsWithoutPair = openCards.filter(card => {
       const sameCards = openCards.filter(openCard => card.suit === openCard.suit && card.rank === openCard.rank);
 
@@ -147,17 +129,29 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
       return false;
     });
-    // const playerLost = openCardsWithoutPair.length >= 2;
 
+    const playerLost = attempt === 0;
     if (openCardsWithoutPair.length >= 2) {
-      setAttempt(prevAttempt => prevAttempt - 1);
+      let needToClose = false;
+      openCardsWithoutPair.forEach(openCardWithoutPair => {
+        const foundCard = nextCards.find(card => card.id === openCardWithoutPair.id);
+        if (foundCard) {
+          needToClose = true;
+          foundCard.open = false;
+        }
+      });
 
-      if (attempt === 1) {
-        finishGame(STATUS_LOST);
-
-        return;
+      if (needToClose) {
+        setAttempt(prevAttempt => prevAttempt - 1);
+        setCards([...nextCards]);
       }
     }
+
+    if (playerLost) {
+      finishGame(STATUS_LOST);
+      return;
+    }
+    // ... игра продолжается
   };
 
   const isGameEnded = status === STATUS_LOST || status === STATUS_WON;
@@ -235,7 +229,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
-      <div className={styles.attemptText}>Попытки: {attempt}</div>
+      {/* {mode === "easy" ? ( */}
+      <div className={styles.attemptText}>
+        <div> Попытки: {attempt}</div>
+      </div>
+      {/* ) : null} */}
 
       {isGameEnded ? (
         <div className={styles.modalContainer}>
