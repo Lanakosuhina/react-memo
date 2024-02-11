@@ -229,11 +229,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
-      {/* {mode === "easy" ? ( */}
-      <div className={styles.attemptText}>
-        <div> Попытки: {attempt}</div>
-      </div>
-      {/* ) : null} */}
+      {mode === "easy" ? (
+        <div className={styles.attemptText}>
+          <div> Попытки: {attempt}</div>
+        </div>
+      ) : (
+        <div></div>
+      )}
 
       {isGameEnded ? (
         <div className={styles.modalContainer}>
