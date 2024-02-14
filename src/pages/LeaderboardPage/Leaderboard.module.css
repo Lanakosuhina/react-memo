@@ -1,12 +1,12 @@
 .container {
-  width: 672px;
+  width: 686px;
   margin: 50px auto;
 }
 
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-bottom: 40px;
 }
 
@@ -42,7 +42,7 @@
 
 
 .position {
-  width: 100px;
+  width: 80px;
   text-align: left;
 
 }
@@ -53,9 +53,18 @@
 
 }
 
+.achievements {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .time {
   width: 100px;
-  text-align: left;
+  display: flex;
+  justify-content: center;
 }
 
 .tbody {
@@ -80,4 +89,9 @@
   font-size: 20px;
   line-height: 133%;
   color: #000;
+}
+
+.block_achievements {
+  position: relative;
+  top: 3px;
 }
