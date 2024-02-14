@@ -1,13 +1,30 @@
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import styles from "./Leaderboard.module.css";
+import { useEffect, useState } from "react";
+import { getLeaders } from "../../api";
 
 export function LeaderboardPage() {
-  // let leaders = [
+  const [leaders, setLeaders] = useState([]);
+  // let leadersList = [
   //   { id: 1, name: "Великий маг", time: 8 },
   //   { id: 2, name: "Карточный мастер", time: 12 },
-  //   { id: 3, name: "Гениальный игрок", time: 31 },
+  //   { id: 3, name: "Гениальный игрок", time: "00:04" },
   // ];
+
+  useEffect(() => {
+    getLeaders()
+      .then(data => {
+        let leader = data.leaders;
+        leader = leader.sort(function (a, b) {
+          return a.time - b.time;
+        });
+        setLeaders(leader);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, []);
 
   return (
     <>
@@ -27,26 +44,13 @@ export function LeaderboardPage() {
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            <tr className={styles.tablle}>
-              <td>Warren</td>
-              <td>Wheeler</td>
-              <td>99134</td>
-            </tr>
-            <tr className={styles.tablle}>
-              <td>Zena</td>
-              <td>Hale</td>
-              <td>19803</td>
-            </tr>
-            <tr className={styles.tablle}>
-              <td>Julia</td>
-              <td>Haupt</td>
-              <td>24116</td>
-            </tr>
-            <tr className={styles.tablle}>
-              <td>Rachel</td>
-              <td>English</td>
-              <td>58951</td>
-            </tr>
+            {leaders.map((leader, index) => (
+              <tr className={styles.leader} key={leader.id}>
+                <td className={styles.position}>#{index + 1}</td>
+                <td className={styles.user}>{leader.name}</td>
+                <td className={styles.time}>{leader.time}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

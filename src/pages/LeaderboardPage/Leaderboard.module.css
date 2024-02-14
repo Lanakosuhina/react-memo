@@ -20,10 +20,11 @@
 }
 
 .leaderboard {
+  width: 686px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  gap: 150px;
   height: 48px;
   background-color: #fff;
   border-radius: 12px;
@@ -42,14 +43,19 @@
 
 .position {
   width: 100px;
+  text-align: left;
+
 }
 
 .user {
-  width: 160px;
+  width: 200px;
+  text-align: left;
+
 }
 
 .time {
-  width: 80px;
+  width: 100px;
+  text-align: left;
 }
 
 .tbody {
@@ -58,11 +64,11 @@
   gap: 6px;
 }
 
-.tablle {
+.leader {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 150px;
+  justify-content: space-between;
   height: 48px;
   background-color: #fff;
   border-radius: 12px;

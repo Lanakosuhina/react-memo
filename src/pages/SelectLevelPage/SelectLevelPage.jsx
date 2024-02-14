@@ -2,13 +2,11 @@ import styles from "./SelectLevelPage.module.css";
 import { Checkbox } from "../../components/Checkbox/Checkbox";
 import { Button } from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
-import useMode from "../../hooks/useMode";
-import { useState } from "react";
+import useDifficulty from "../../hooks/useDifficulty";
 
 export function SelectLevelPage() {
-  const { mode, changeMode } = useMode();
+  const { mode, changeMode, level, setLevel } = useDifficulty();
   const navigate = useNavigate();
-  const [level, setLevel] = useState(null);
 
   const handlePlayClick = () => {
     navigate(`/game/${level}`, { state: { mode } });

@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 
-export const ModeContext = React.createContext({
+export const DifficultyContext = React.createContext({
   changeMode: () => {},
   mode: "hard",
+  level: null,
+  setLevel: () => {},
 });
 
-export function ModeProvider({ children }) {
+export function DifficultyProvider({ children }) {
   const [mode, setMode] = useState("hard");
+  const [level, setLevel] = useState(null);
 
   const changeMode = () => {
     setMode(prevMode => (prevMode === "hard" ? "easy" : "hard"));
   };
 
   return (
-    <ModeContext.Provider
+    <DifficultyContext.Provider
       value={{
         changeMode,
         mode,
+        setLevel,
+        level,
       }}
     >
       {children}
-    </ModeContext.Provider>
+    </DifficultyContext.Provider>
   );
 }

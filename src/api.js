@@ -8,6 +8,8 @@ export async function getLeaders() {
     throw new Error("Невозможно получить список лидеров");
   } else {
     const data = await response.json();
+    console.log(data);
+
     return data;
   }
 }
