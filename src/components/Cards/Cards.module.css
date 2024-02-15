@@ -50,6 +50,7 @@
   margin-top: 34px;
   margin-bottom: 10px;
 }
+
 .previewDescription {
   font-size: 18px;
   line-height: 18px;
@@ -77,4 +78,86 @@
   padding-top: 30px;
   color: #fff;
   font-family: StratosSkyeng;
+}
+
+.containerImg {
+  display: flex;
+  gap: 20px;
+}
+
+.vision {
+  height: 68px;
+  width: 68px;
+  background-image: url(./images/visionGame.svg);
+  border-radius: 34px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.vision:hover {
+  opacity: 1;
+}
+
+.alohomora {
+  height: 68px;
+  width: 68px;
+  background-image: url(./images/alohomora.svg);
+  border-radius: 34px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.alohomora:hover {
+  opacity: 1;
+}
+
+[dataTitle]::before {
+  opacity: 0;
+  content: attr(dataTitle);
+  padding-top: 25px;
+  position: absolute;
+  color: #004980;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  z-index: 2;
+  left: -7px;
+  bottom: -50px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+[dataTitle]:hover::before {
+  opacity: 1;
+}
+
+[dataHint] {
+  position: relative;
+}
+
+[dataHint]::after {
+
+  opacity: 0;
+  content: attr(dataHint);
+  position: absolute;
+  width: 180px;
+  padding: 60px 20px 20px;
+  color: #004980;
+  background: #C2F5FF;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  z-index: 1;
+  bottom: -5px;
+  transform: translate(-50%, 100%);
+  border-radius: 12px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+[dataHint]:hover::after {
+  opacity: 1;
 }

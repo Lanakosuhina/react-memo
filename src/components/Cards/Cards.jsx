@@ -215,7 +215,20 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
+
+        {status === STATUS_IN_PROGRESS ? (
+          <>
+            <div className={styles.containerImg}>
+              <button
+                className={styles.vision}
+                dataTitle="Прозрение"
+                dataHint="На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается."
+              />
+              <button className={styles.alohomora} dataTitle="Алохомора" dataHint="Открывается случайная пара карт." />
+            </div>
+            <Button onClick={resetGame}>Начать заново</Button>
+          </>
+        ) : null}
       </div>
 
       <div className={styles.cards}>
