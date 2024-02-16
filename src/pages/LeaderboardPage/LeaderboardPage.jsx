@@ -8,7 +8,7 @@ export function LeaderboardPage() {
   const [leaders, setLeaders] = useState([]);
   // let leadersList = [
   //   { id: 1, name: "Великий маг", time: 8 },
-  //   { id: 2, name: "Карточный мастер", time: 12 },
+  //   { id: 2, name: "Карточный мастер", time: 72 },
   //   { id: 3, name: "Гениальный игрок", time: "00:04" },
   // ];
 
