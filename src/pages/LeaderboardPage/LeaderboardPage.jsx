@@ -3,10 +3,6 @@ import { Button } from "../../components/Button/Button";
 import styles from "./Leaderboard.module.css";
 import { useEffect, useState } from "react";
 import { getLeaders } from "../../api";
-import puzzle from "./images/puzzle.svg";
-import puzzleGray from "./images/puzzleGray.svg";
-import vision from "./images/vision.svg";
-import visionGray from "./images/visionGray.svg";
 
 export function LeaderboardPage() {
   const [leaders, setLeaders] = useState([]);
@@ -51,15 +47,19 @@ export function LeaderboardPage() {
                 <td className={styles.achievements}>
                   {leader.achievements && (
                     <div className={styles.block_achievements}>
-                      {leader.achievements.includes(1) ? <img src={puzzle} alt="" /> : <img src={puzzleGray} alt="" />}
+                      {leader.achievements.includes(1) ? (
+                        <button className={styles.puzzle} hint1="Игра пройдена в сложном режиме"></button>
+                      ) : (
+                        <button className={styles.puzzleGray} hint1="Игра пройдена в сложном режиме"></button>
+                      )}
                     </div>
                   )}
                   {leader.achievements && (
                     <div className={styles.block_achievements}>
                       {leader.achievements.includes(2) ? (
-                        <img src={vision} alt="" className={styles.leaderBlock_img} />
+                        <button className={styles.vision} hint2="Игра пройдена без супер-сил"></button>
                       ) : (
-                        <img src={visionGray} alt="" className={styles.leaderBlock_img} />
+                        <button className={styles.visionGray} hint2="Игра пройдена без супер-сил"></button>
                       )}
                     </div>
                   )}
