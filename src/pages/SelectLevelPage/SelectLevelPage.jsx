@@ -1,14 +1,12 @@
 import styles from "./SelectLevelPage.module.css";
 import { Checkbox } from "../../components/Checkbox/Checkbox";
 import { Button } from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
-import useMode from "../../hooks/useMode";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useDifficulty from "../../hooks/useDifficulty";
 
 export function SelectLevelPage() {
-  const { mode, changeMode } = useMode();
+  const { mode, changeMode, level, setLevel } = useDifficulty();
   const navigate = useNavigate();
-  const [level, setLevel] = useState(null);
 
   const handlePlayClick = () => {
     navigate(`/game/${level}`, { state: { mode } });
@@ -38,7 +36,10 @@ export function SelectLevelPage() {
         <Checkbox className={styles.mode} onClick={changeMode}>
           Легкий режим (3 жизни)
         </Checkbox>
-        <Button onClick={handlePlayClick}>Играть</Button>
+        {level === null ? <button disabled>Играть</button> : <Button onClick={handlePlayClick}>Играть</Button>}
+        <Link to="/leaderboard" className={styles.linkBoard}>
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );

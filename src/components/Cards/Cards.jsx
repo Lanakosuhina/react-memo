@@ -5,7 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
-import useMode from "../../hooks/useMode";
+import useDifficulty from "../../hooks/useDifficulty";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -59,7 +59,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   });
 
   // Зависимость от чекбокса на начальной странице
-  const { mode } = useMode();
+  const { mode } = useDifficulty();
   // Состояние для количества попыток в начале игры
   const [attempt, setAttempt] = useState(mode === "easy" ? 3 : 1);
 
@@ -229,11 +229,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
-      {/* {mode === "easy" ? ( */}
-      <div className={styles.attemptText}>
-        <div> Попытки: {attempt}</div>
-      </div>
-      {/* ) : null} */}
+      {mode === "easy" ? (
+        <div className={styles.attemptText}>
+          <div> Попытки: {attempt}</div>
+        </div>
+      ) : (
+        <div></div>
+      )}
 
       {isGameEnded ? (
         <div className={styles.modalContainer}>
