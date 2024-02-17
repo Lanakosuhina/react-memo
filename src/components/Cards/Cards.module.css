@@ -42,6 +42,20 @@
   font-style: normal;
   font-weight: 400;
   line-height: 72px;
+  opacity: 1;
+}
+
+.pause {
+  opacity: 0.5;
+  display: flex;
+  align-items: end;
+
+  color: #fff;
+  font-family: StratosSkyeng;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px;
 }
 
 .previewText {
@@ -111,9 +125,9 @@
   opacity: 1;
 }
 
-[dataTitle]::before {
+[title]::before {
   opacity: 0;
-  content: attr(dataTitle);
+  content: attr(title);
   padding-top: 25px;
   position: absolute;
   color: #004980;
@@ -128,18 +142,17 @@
   transition: opacity 0.2s;
 }
 
-[dataTitle]:hover::before {
+[title]:hover::before {
   opacity: 1;
 }
 
-[dataHint] {
+[hint] {
   position: relative;
 }
 
-[dataHint]::after {
-
+[hint]::after {
   opacity: 0;
-  content: attr(dataHint);
+  content: attr(hint);
   position: absolute;
   width: 180px;
   padding: 60px 20px 20px;
@@ -158,6 +171,6 @@
   transition: opacity 0.2s;
 }
 
-[dataHint]:hover::after {
+[hint]:hover::after {
   opacity: 1;
 }
