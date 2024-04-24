@@ -14,7 +14,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   const gameTime = gameDurationSeconds + gameDurationMinutes * 60;
 
   useEffect(() => {
-    if (level === "9" && isWon) {
+    if (+level === "9" && isWon) {
       // если игрок выиграл 3 уровень сложности, получаем список лидеров
       getLeaders().then(({ leaders }) => {
         leaders = leaders.sort(function (a, b) {
